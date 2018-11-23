@@ -93,7 +93,7 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace10 "10:Comms"
+set $workspace10 10:Comms
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -121,11 +121,9 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # Assigns
 
-assign [class="Thunderbird"] $workspace10
-assign [class="Mattermost"] $workspace10
-assign [class="skypeforlinux"] $workspace10
-assign [class="rocket.chat+"] $workspace10
-
+assign [instance="skype" class="Skype"] $workspace10
+assign [class="Rocket.Chat+" instance="rocket.chat+"] $workspace10
+assign [instance="email"] $workspace10
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -179,7 +177,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Browser button
-#bindcode 172 exec chromium-browser 
+#bindcode 172 exec chromium-browser
 
 # Filemanager Key
 bindcode 165 exec fman
@@ -195,6 +193,7 @@ bar {
 bindsym $mod+shift+x exec i3lock
 
 #Autostart
-exec thunderbird
-exec rocketchat
-exec skypeforlinux
+exec --no-startup-id skypeforlinux
+exec --no-startup-id urxvt -name email -e neomutt
+exec --no-startup-id rocketchat-desktop
+exec --no-startup-id "i3-msg 'workspace $workspace10; append_layout /home/ilja/.config/i3/workspace-10.json'"
